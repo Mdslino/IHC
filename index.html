@@ -25,23 +25,41 @@
 			var centerPos = new google.maps.LatLng(-23.300261, -45.965545);
 			var zoomLevel = 12;			
 			var mapOptions = {center: centerPos, zoom: zoomLevel}; //DEFININDO A POSICAO INICIAL DO MAPA        
-        
+			var Telefone = this.Telefone
 			map = new google.maps.Map( document.getElementById("map-canvas"), mapOptions );
 		
-			$.getJSON("https://api.myjson.com/bins/4kaoa",function(data) { //BUSCANDO OS DADOS NO MYJSON
+			
+		
+			$("#botao").click(function() {
+			
+				var idade = $("#idade").val();
+			
+				$.getJSON("https://api.myjson.com/bins/5ab0m",function(data) { //BUSCANDO OS DADOS NO MYJSON
 					
-					$.each(data, function(i){
-						marker = new google.maps.Marker({ //CRIANDO OS MARCADORES NO MAPA
-							position: new google.maps.LatLng(this.lat, this.long),
-							title: 'Nome: ' + this.Nome,
-							map: map,
-							icon: 'img/marcador.png'
-						});	
+					alert(idade);
 					
+					alert(data.enderecos[0].idadeMax);
 					
-					
-					})
-			});				
+					$.each(data.enderecos, function(i){
+						if(this.idadeMax <= idade){
+						
+							marker = new google.maps.Marker({ //CRIANDO OS MARCADORES NO MAPA
+							    position: new google.maps.LatLng(this.lat, this.long),
+							    title: 'Nome: ' + this.nome,
+							
+							    map: map,
+							    animation: google.maps.Animation.DROP,
+							    icon: 'img/marcador.png'
+						    });
+						}
+						
+
+					});
+			    });				
+			
+			});
+		
+			
 		});
 	  
     </script>
@@ -49,6 +67,13 @@
   </head>
   
   <body>  
+  
+  <div class="col-md-4">
+					<input required="required" type="number" class="form-control" id="idade" placeholder="RA">
+				</div>
+  
+  <button id="botao" type="submit" class="btn btn-primary col-md-offset-5">Cadastrar Usuário</button>
+  
 	<div class="wrap">
 		<div id="map-canvas"></div>
 	</div>	
