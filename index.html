@@ -25,7 +25,6 @@
 			var centerPos = new google.maps.LatLng(-23.300261, -45.965545);
 			var zoomLevel = 12;			
 			var mapOptions = {center: centerPos, zoom: zoomLevel}; //DEFININDO A POSICAO INICIAL DO MAPA        
-			var Telefone = this.Telefone
 			map = new google.maps.Map( document.getElementById("map-canvas"), mapOptions );
 		
 			
@@ -41,7 +40,7 @@
 					alert(data.enderecos[0].idadeMax);
 					
 					$.each(data.enderecos, function(i){
-						if(idade <= this.idade){
+						if(this.idadeMax <= idade){
 						
 							marker = new google.maps.Marker({ //CRIANDO OS MARCADORES NO MAPA
 							    position: new google.maps.LatLng(this.lat, this.long),
