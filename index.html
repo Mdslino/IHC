@@ -41,11 +41,11 @@
 					alert(data.enderecos[0].idadeMax);
 					
 					$.each(data.enderecos, function(i){
-						if(this.idadeMax <= idade){
+						if(idade <= this.idade){
 						
 							marker = new google.maps.Marker({ //CRIANDO OS MARCADORES NO MAPA
 							    position: new google.maps.LatLng(this.lat, this.long),
-							    title: 'Nome: ' + this.nome,
+							    title: 'Nome: ' + this.nome + '\n' + 'Endereco: ' + this.end + '\n' + 'Telefone: ' + this.telefone + '\n' + 'Email: ' + this.email,
 							
 							    map: map,
 							    animation: google.maps.Animation.DROP,
@@ -69,10 +69,10 @@
   <body>  
   
   <div class="col-md-4">
-					<input required="required" type="number" class="form-control" id="idade" placeholder="RA">
+					<input required="required" type="number" class="form-control" id="idade" placeholder="Idade">
 				</div>
   
-  <button id="botao" type="submit" class="btn btn-primary col-md-offset-5">Cadastrar Usuário</button>
+  <button id="botao" type="submit" class="btn btn-primary col-md-offset-5">Buscar Escola</button>
   
 	<div class="wrap">
 		<div id="map-canvas"></div>
