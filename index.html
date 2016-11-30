@@ -30,16 +30,17 @@
 			
 		
 			$("#botao").click(function() {
+			//map = new google.maps.Map( document.getElementById("map-canvas"), mapOptions );
 			
 				var idade = $("#idade").val();
 			
-				$.getJSON("https://api.myjson.com/bins/5ab0m",function(data) { //BUSCANDO OS DADOS NO MYJSON
+				$.getJSON("https://api.myjson.com/bins/1r2p9",function(data) { //BUSCANDO OS DADOS NO MYJSON
 					
 					alert(idade);
 					
 					$.each(data.enderecos, function(i){
 						if(idade<=this.idadeMax && idade>=this.idadeMin){
-						
+
 							marker = new google.maps.Marker({ //CRIANDO OS MARCADORES NO MAPA
 							    position: new google.maps.LatLng(this.lat, this.long),
 							    title: 'Nome: ' + this.nome + '\n' + 'Endereco: ' + this.end + '\n' + 'Telefone: ' + this.telefone + '\n' + 'Email: ' + this.email,
