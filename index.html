@@ -36,7 +36,7 @@
 			function mapAll(idade){
 				if(markers.length > 0){
 					removeMarkers();
-				$.getJSON("https://api.myjson.com/bins/1r2p9",function(data) { //BUSCANDO OS DADOS NO MYJSON
+				$.getJSON("https://api.myjson.com/bins/1f3eb",function(data) { //BUSCANDO OS DADOS NO MYJSON
 					$.each(data.enderecos, function(i){
 						if(idade <= this.idadeMax && idade >= this.idadeMin){
 							var latLng = new google.maps.LatLng(this.lat, this.long);
@@ -57,7 +57,7 @@
 				}
 				else{
 				
-				$.getJSON("https://api.myjson.com/bins/1r2p9",function(data) { //BUSCANDO OS DADOS NO MYJSON
+				$.getJSON("https://api.myjson.com/bins/1f3eb",function(data) { //BUSCANDO OS DADOS NO MYJSON
 					$.each(data.enderecos, function(i){
 						if(idade <= this.idadeMax && idade >= this.idadeMin){
 							var latLng = new google.maps.LatLng(this.lat, this.long);
