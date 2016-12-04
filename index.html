@@ -26,7 +26,15 @@
 			var centerPos = new google.maps.LatLng(-23.300261, -45.965545);
 			var zoomLevel = 12;			
 			var mapOptions = {center: centerPos, zoom: zoomLevel};
-			
+			var idade = 6;
+			map = new google.maps.Map( document.getElementById("map-canvas"), mapOptions );
+			mapAll(idade);
+			$("#botao").click(function() {
+				idade = $("#idade").val();
+				mapAll(idade);
+				
+			});
+
 			function removeMarkers(){
     			for(i=0; i<markers.length; i++){
         			markers[i].setMap(null);
@@ -52,11 +60,10 @@
 
 						}
 					});
-					
 			    });
 				}
 				else{
-				
+				markers = [];
 				$.getJSON("https://api.myjson.com/bins/1f3eb",function(data) { //BUSCANDO OS DADOS NO MYJSON
 					$.each(data.enderecos, function(i){
 						if(idade <= this.idadeMax && idade >= this.idadeMin){
@@ -73,17 +80,12 @@
 						    
 						}
 					});
-					
 			    });
 				}
 			}
-			map = new google.maps.Map( document.getElementById("map-canvas"), mapOptions );
-			$("#botao").click(function() {
-				var idade = $("#idade").val();
-				mapAll(idade);
-				
-			});
 		});
+
+
 	  
     </script>
 	
