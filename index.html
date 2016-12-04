@@ -22,49 +22,74 @@
 		$(document).ready(function(){
 		
 			var map;
+			var markers = [];
 			var centerPos = new google.maps.LatLng(-23.300261, -45.965545);
 			var zoomLevel = 12;			
-			var mapOptions = {center: centerPos, zoom: zoomLevel}; //DEFININDO A POSICAO INICIAL DO MAPA        
-			map = new google.maps.Map( document.getElementById("map-canvas"), mapOptions );
-		
+			var mapOptions = {center: centerPos, zoom: zoomLevel};
 			
-		
-			$("#botao").click(function() {
-			//map = new google.maps.Map( document.getElementById("map-canvas"), mapOptions );
-			
-				var idade = $("#idade").val();
-			
+			function removeMarkers(){
+    			for(i=0; i<markers.length; i++){
+        			markers[i].setMap(null);
+    			}
+			}
+
+			function mapAll(idade){
+				if(markers.length > 0){
+					removeMarkers();
 				$.getJSON("https://api.myjson.com/bins/1r2p9",function(data) { //BUSCANDO OS DADOS NO MYJSON
-					
-					alert(idade);
-					
 					$.each(data.enderecos, function(i){
-						if(idade<=this.idadeMax && idade>=this.idadeMin){
-
+						if(idade <= this.idadeMax && idade >= this.idadeMin){
+							var latLng = new google.maps.LatLng(this.lat, this.long);
 							marker = new google.maps.Marker({ //CRIANDO OS MARCADORES NO MAPA
-							    position: new google.maps.LatLng(this.lat, this.long),
-							    title: 'Nome: ' + this.nome + '\n' + 'Endereco: ' + this.end + '\n' + 'Telefone: ' + this.telefone + '\n' + 'Email: ' + this.email,
-							
-							    map: map,
-							    animation: google.maps.Animation.DROP,
-							    icon: 'img/marcador.png'
+							position: latLng,
+							title: 'Nome: ' + this.nome + '\n' + 'Endereco: ' + this.end + '\n' + 'Telefone: ' + this.telefone + '\n' + 'Email: ' + this.email + '\n' + 'Idade Minima: ' + this.idadeMin + '\n' + 'Idade Maxima: ' + this.idadeMax,
+							map: map,
+							animation: google.maps.Animation.DROP,
+							icon: 'img/marcador.png'
 						    });
-						}
-						
+						    markers.push(marker);
+						    markers[i].setMap(map);
 
+						}
 					});
-			    });				
-			
+					alert("If")
+			    });
+				}
+				else{
+				
+				$.getJSON("https://api.myjson.com/bins/1r2p9",function(data) { //BUSCANDO OS DADOS NO MYJSON
+					$.each(data.enderecos, function(i){
+						if(idade <= this.idadeMax && idade >= this.idadeMin){
+							var latLng = new google.maps.LatLng(this.lat, this.long);
+							marker = new google.maps.Marker({ //CRIANDO OS MARCADORES NO MAPA
+							position: latLng,
+							title: 'Nome: ' + this.nome + '\n' + 'Endereco: ' + this.end + '\n' + 'Telefone: ' + this.telefone + '\n' + 'Email: ' + this.email + '\n' + 'Idade Minima: ' + this.idadeMin + '\n' + 'Idade Maxima: ' + this.idadeMax,
+							map: map,
+							animation: google.maps.Animation.DROP,
+							icon: 'img/marcador.png'
+						    });
+						    markers.push(marker);
+						    markers[i].setMap(map);
+						    
+						}
+					});
+					alert("Else");
+			    });
+				}
+			}
+			map = new google.maps.Map( document.getElementById("map-canvas"), mapOptions );
+			$("#botao").click(function() {
+				var idade = $("#idade").val();
+				mapAll(idade);
+				
 			});
-		
-			
 		});
 	  
     </script>
 	
   </head>
   
-  <body>  
+  <body> 
   
   <div class="col-md-4">
 					<input required="required" type="number" class="form-control" id="idade" placeholder="Idade">
